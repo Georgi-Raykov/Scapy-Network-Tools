@@ -1,14 +1,12 @@
-from scapy.layers.inet import IP, TCP
-from scapy.sendrecv import sr
+from scapy.all import *
+from scapy.layers.inet import IP, ICMP, TCP
 
-# Създаване на пакет
-pkt = IP(dst="google.com")/TCP(dport=80)
+pkt = IP(dst="8.8.8.8")/ICMP()  # ICMP (ping) пакет, насочен към 8.8.8.8
+pkt.show()
 
-# Изпращане на пакет и изчакване на отговор (sr)
-answer = sr(pkt, timeout=2, verbose=2)
+pkt = IP(dst="8.8.8.8")/TCP(dport=80, flags="S")  # TCP пакет към порт 80 (за HTTP)
+pkt.show()
 
-# Отговор от целевия хост
-print(answer)
 
 
 
